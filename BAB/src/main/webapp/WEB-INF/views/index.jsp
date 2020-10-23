@@ -3,7 +3,7 @@
 <html lang="ko">
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <head>
-    <title>Material Able bootstrap admin template by Codedthemes</title>
+    <title>BAB</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -12,7 +12,7 @@
     <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
     <!-- Favicon icon -->
-    <link rel="icon" href="resources/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="resources/images/babicon.ico" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
     <!-- waves.css -->
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <a href="/iducs/">
-                            <img class="img-fluid" src="resources/images/logo.png" alt="Theme-Logo" />
+                            <img class="img-fluid" src="resources/images/bablogo.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options waves-effect waves-light">
                             <i class="ti-more"></i>
@@ -127,13 +127,20 @@
                                     <i class="ti-fullscreen"></i>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> 
                         <ul class="nav-right">
-                            <li class="header-notification">
+                                    <c:set var="id" value="${sessionScope.id}" />
+					 <c:choose>
+					    <c:when test="${id eq null}">
+					       
+					   </c:when>
+					   <c:when test="${id ne null}">
+					        <li class="header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <i class="ti-bell"></i>
                                     <span class="badge bg-c-red"></span>
                                 </a>
+                               
                                 <ul class="show-notification">
                                     <li>
                                         <h6>Notifications</h6>
@@ -151,38 +158,24 @@
                                     </li>
                                 </ul>
                             </li>
+                             
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
                                     <img src="resources/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>오성재</span>
+                                    <span>${name}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
+                                    
                                     <li class="waves-effect waves-light">
-                                        <a href="#!">
-                                            <i class="ti-settings"></i> Settings
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="user-profile.html">
-                                            <i class="ti-user"></i> Profile
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="email-inbox.html">
-                                            <i class="ti-email"></i> My Messages
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-lock-screen.html">
-                                            <i class="ti-lock"></i> Lock Screen
-                                        </a>
-                                    </li>
-                                    <li class="waves-effect waves-light">
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/iducs/logout">
                                             <i class="ti-layout-sidebar-left"></i> Logout
                                         </a>
                                     </li>
+					    </c:when>
+					</c:choose>
+                        
+                                    
                                 </ul>
                             </li>
                         </ul>
@@ -195,32 +188,50 @@
                     <nav class="pcoded-navbar">
                         <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                         <div class="pcoded-inner-navbar main-menu">
-                            <div class="">
+                            <c:set var="id" value="${sessionScope.id}" />
+					 <c:choose>
+					    <c:when test="${id eq null}">
+					      <div class="">
+                                <div class="main-menu-header">
+                                    <img class="img-80 img-radius" src="resources/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div>
+                                  
+                                        <span><p style="color:white; font-size:14px; margin:10px 0px 0px 0px" >로그인 하세요.</p></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                           
+                                            <a href="/iducs/logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+					   </c:when>
+					   <c:when test="${id ne null}">
+					       <div class="">
                                 <div class="main-menu-header">
                                     <img class="img-80 img-radius" src="resources/images/avatar-4.jpg" alt="User-Profile-Image">
                                     <div class="user-details">
                                         <span id="more-details">${name}<i class="fa fa-caret-down"></i></span>
                                     </div>
                                 </div>
+                                
                                 <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
-                                            <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
-                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                           
                                             <a href="/iducs/logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="p-15 p-b-0">
-                                <form class="form-material">
-                                    <div class="form-group form-primary">
-                                        <input type="text" name="footer-email" class="form-control">
-                                        <span class="form-bar"></span>
-                                        <label class="float-label"><i class="fa fa-search m-r-10"></i>Search Friend</label>
-                                    </div>
-                                </form>
-                            </div>
+					    </c:when>
+					</c:choose>
+                           
+                           
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
                                     <a href="#" class="waves-effect waves-dark">

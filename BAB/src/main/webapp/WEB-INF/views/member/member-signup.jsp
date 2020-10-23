@@ -23,6 +23,13 @@ function checkValue()
                 return ;
             }
             
+            if(!document.userInfo.idCheck.value==0){
+                alert("아이디 중복확인하세요.");
+                inputForm.id.focus();
+                return ;
+            }
+            
+            
             if(!document.userInfo.pw.value){
                 alert("비밀번호를 입력하세요.");
                 inputForm.pw.focus();
@@ -47,6 +54,19 @@ function checkValue()
             }
             inputForm.submit();
         }
+/*
+function checkId(){
+			inputForm = eval("document.userInfo");
+			if(!document.userInfo.id.value){
+                alert("아이디를 입력하세요.");
+                inputForm.id.focus();
+                return ;
+            }
+            
+            var url="/member/idcheck.jsp?id="+document.userInfo.id.value
+            window.open(url,"idCheck","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizeable=no,width=300,height=200")
+            //open("팝업주소","팝업창이름","팝업창설정")
+}*/
 </script>
 
 
@@ -171,7 +191,13 @@ function checkValue()
                                     <input type="text" name="id" class="form-control">
                                     <span class="form-bar"></span>
                                     <label class="float-label">Your id</label>
+                                   
+                                   <!--  <br> <div class="center">                                
+                                    <div class="btn-group" style="margin-left: 140px"data-toggle="buttons" id="radiotest">                             
+                                    <input type="button" class="btn btn-primary btn-md btn-block" style="border-radius:14px;" value="ID 중복확인" onClick="checkId()">
+                                     -->
                                 </div>
+                                 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary">
