@@ -11,19 +11,40 @@ if(msg != "") {
 
 function checkValue()
         {
+			var getName= RegExp(/^[가-힣]+$/); //이름
+			var getCheck= RegExp(/^[a-zA-Z0-9]{4,12}$/); //id,pw
+			var getPw = RegExp(/^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/);
+
+			
+
 			 inputForm = eval("document.userInfo");
 			if(!document.userInfo.name.value){
 		        alert("이름을 입력하세요.");
 		        inputForm.name.focus();
 		        return ;
 		    }
+			if(!getName.test($("#name").val())){ 
+				alert("이름형식에 맞게 입력해주세요") 
+				$("#name").val(""); $("#name").focus(); 
+				return false; 
+				}
+
+			
             if(!document.userInfo.id.value){
                 alert("아이디를 입력하세요.");
                 inputForm.id.focus();
                 return ;
             }
-            
-            if(!document.userInfo.idCheck.value==0){
+
+            if(!getCheck.test($("#id").val())){ 
+                alert("형식에 맞게 입력해주세요"); 
+                $("#id").val(""); 
+                $("#id").focus(); 
+                return false;
+            }
+
+           
+            if(document.userInfo.check.value=="no"){
                 alert("아이디 중복확인하세요.");
                 inputForm.id.focus();
                 return ;
@@ -40,13 +61,21 @@ function checkValue()
                 inputForm.re_pw.focus();
                 return ;
             }
-          
+          	
             // 비밀번호와 비밀번호 확인에 입력된 값이 동일한지 확인
             if(document.userInfo.pw.value != document.userInfo.re_pw.value){
                 alert("비밀번호를 동일하게 입력하세요.");
                 inputForm.re_pw.focus();
                 return ;
             }
+            if(!getPw.test($("#pw").val())){ 
+                alert("비밀번호는 8자이상, 숫자/문자/특수문자를 모두 포함해야 합니다."); 
+                $("#pw").val("");
+                 $("#pw").focus(); 
+                 return false;
+                  }
+
+           
             if(!document.userInfo.status.value){
                 alert("교수or학생 선택하세요.");
                
@@ -54,7 +83,7 @@ function checkValue()
             }
             inputForm.submit();
         }
-/*
+
 function checkId(){
 			inputForm = eval("document.userInfo");
 			if(!document.userInfo.id.value){
@@ -62,11 +91,13 @@ function checkId(){
                 inputForm.id.focus();
                 return ;
             }
+
+			var windowObj;
+            var url="/iducs/idcheck?id="+document.userInfo.id.value;
+            var setting = "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizeable=no,width=300,height=200";
+            windowObj = window.open(url,"idCheck",setting);
             
-            var url="/member/idcheck.jsp?id="+document.userInfo.id.value
-            window.open(url,"idCheck","toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizeable=no,width=300,height=200")
-            //open("팝업주소","팝업창이름","팝업창설정")
-}*/
+}
 </script>
 
 
@@ -172,6 +203,7 @@ function checkId(){
             <div class="row">
                 <div class="col-sm-12">
                     <form action="/iducs/membersignupgo.do" method="POST" class="md-float-material form-material" name="userInfo">
+                        
                         <div class="text-center">
                             
                         </div>
@@ -183,32 +215,33 @@ function checkId(){
                                     </div>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input type="text" name="name" class="form-control">
+                                    <input type="text" id="name" name="name" class="form-control">
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Choose Username</label>
+                                    <label class="float-label">이름 : 예)홍길동</label>
                                 </div>
                                 <div class="form-group form-primary">
-                                    <input type="text" name="id" class="form-control">
+                                    <input type="text" id="id" name="id" class="form-control">
+                                    <input type="hidden" id="check" name="check" value="no"/>
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Your id</label>
+                                    <label class="float-label">ID : 4~12자의 영문 대소문자와 숫자로만 입력</label>
                                    
-                                   <!--  <br> <div class="center">                                
+                                     <br> <div class="center">                                
                                     <div class="btn-group" style="margin-left: 140px"data-toggle="buttons" id="radiotest">                             
                                     <input type="button" class="btn btn-primary btn-md btn-block" style="border-radius:14px;" value="ID 중복확인" onClick="checkId()">
-                                     -->
+                                     
                                 </div>
                                  
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary">
-                                            <input type="password" name="pw" class="form-control">
+                                            <input type="password" id="pw" name="pw" class="form-control">
                                             <span class="form-bar"></span>
                                             <label class="float-label">Password</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary">
-                                            <input type="password" name="re_pw" class="form-control">
+                                            <input type="password" id="re_pw" name="re_pw" class="form-control">
                                             <span class="form-bar"></span>
                                             <label class="float-label">Confirm Password</label>
                                         </div>
@@ -310,6 +343,7 @@ function checkId(){
 <!-- jquery slimscroll js -->
 <script type="text/javascript" src="/iducs/resources/js/jquery-slimscroll/jquery.slimscroll.js"></script>
 <script type="text/javascript" src="/iducs/resources/js/common-pages.js"></script>
+ <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 </body>
 
 </html>

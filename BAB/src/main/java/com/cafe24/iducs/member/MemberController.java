@@ -5,8 +5,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 	
@@ -17,23 +19,18 @@ import org.springframework.web.servlet.ModelAndView;
 	MemberDAO dao;
 	
 	@RequestMapping(value="/membersignup",method=RequestMethod.GET)
-	public String signup() {
+	public String signup(Model model) {
+		
+		model.addAttribute("check", 0);
 		
 		return "member/member-signup";
 	}
 	@RequestMapping(value="/membersignupgo.do",method=RequestMethod.POST)
 	public ModelAndView membersignupsuccess(MemberDTO dto , ModelAndView mav) {
-		int count = dao.checkmember(dto);
-		if(count>=1)
-		{
-			mav.addObject("msg", "id 중복입니다.");
-			mav.setViewName("member/member-signup");
-			
-		}
-		else{
+
 			dao.insertmember(dto);
 			mav.setViewName("member/member-login");
-		}
+		
 		return mav;
 	}
 	
@@ -70,5 +67,24 @@ import org.springframework.web.servlet.ModelAndView;
 		session.invalidate();
 		
 		return "index";
+	}
+	
+	@RequestMapping(value="/idcheck",method=RequestMethod.GET)
+	public ModelAndView memberIdCheck(@RequestParam String id, MemberDTO dto, ModelAndView mav) {
+		
+		
+		int count = dao.checkmember(dto);
+		mav.addObject("id", id);
+		
+		if(count == 1) {
+			mav.addObject("msg", 0);
+		}
+		else {
+			mav.addObject("msg", 1);
+		}
+		
+		mav.setViewName("member/member-idcheck");
+		
+		return mav;
 	}
 }
