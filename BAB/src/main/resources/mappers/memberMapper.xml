@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 
+3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cafe24.iducs.mappers.memberMapper">
+
+	<insert id="insertmember">
+		INSERT INTO aaa.member
+		(id,pw,name,status,img)
+		VALUES
+		(#{id},#{pw},#{name},#{status},#{img});
+	</insert>
+
+	<select id="selectmember" parameterType="MemberDTO" resultType="int">
+		SELECT COUNT(*) FROM aaa.member WHERE id='${id}' AND pw='${pw}';
+	</select>
+	
+	<select id="selectmember1" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT * FROM aaa.member WHERE id='${id}' AND pw='${pw}';
+	</select>
+	
+	<select id="checkmember" parameterType="MemberDTO" resultType="int">
+		SELECT COUNT(*) FROM aaa.member WHERE id='${id}';
+	</select>
+	
+	<select id="selectmember2" parameterType="String" resultType="MemberDTO">
+		SELECT * FROM aaa.member WHERE id='${userid}';
+	</select>
+	
+</mapper>
